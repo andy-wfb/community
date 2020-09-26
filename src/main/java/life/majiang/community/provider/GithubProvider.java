@@ -24,6 +24,7 @@ public class GithubProvider {
             String string = response.body().string();
             //将access_token进行拆分,提取出token
             String token = string.split("&")[0].split("=")[1];
+            System.out.println("token的信息:"+token);
             return token;
         } catch (IOException e) {
             e.printStackTrace();
@@ -39,10 +40,12 @@ public class GithubProvider {
                 .build();
         try {
             Response response = client.newCall(request).execute();
-            String string = response.body().string();
-            GithubUser githubUser = JSON.parseObject(string, GithubUser.class);
+            String str = response.body().string();
+            System.out.println(str);
+            GithubUser githubUser = JSON.parseObject(str,GithubUser.class);
+            System.out.println(githubUser);
             return githubUser;
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
